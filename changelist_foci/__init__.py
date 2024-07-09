@@ -31,7 +31,6 @@ def _get_change_list(input_data: InputData) -> ChangelistData:
     ChangelistData - The Changelist requested by the Input Data.
     """
     cl_list = read_workspace_changelists(input_data.workspace_xml)
-    print(input_data.changelist_name)
     if (cl_name := input_data.changelist_name) not in ["None", None]:
         # Operate on the given Changelist
         filtered_list = list(filter(lambda x: x.name == cl_name, cl_list))
