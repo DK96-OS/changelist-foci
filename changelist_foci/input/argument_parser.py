@@ -60,7 +60,7 @@ def _validate_arguments(
         workspace_path=path,
         full_path=parsed_args.full_path,
         no_file_ext=parsed_args.no_file_ext,
-        file_name=parsed_args.filename,
+        filename=parsed_args.filename,
     )
 
 

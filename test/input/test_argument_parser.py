@@ -9,7 +9,7 @@ def test_parse_arguments_empty_list():
     assert result.workspace_path is None
     assert not result.full_path
     assert not result.no_file_ext
-    assert not result.file_name
+    assert not result.filename
 
 
 def test_parse_arguments_change_list_main():
@@ -18,7 +18,7 @@ def test_parse_arguments_change_list_main():
     assert result.workspace_path is None
     assert not result.full_path
     assert not result.no_file_ext
-    assert not result.file_name
+    assert not result.filename
 
 
 def test_parse_arguments_filename_plus_no_file_ext():
@@ -27,7 +27,7 @@ def test_parse_arguments_filename_plus_no_file_ext():
     assert result.workspace_path is None
     assert not result.full_path
     assert result.no_file_ext
-    assert result.file_name
+    assert result.filename
 
 
 def test_parse_arguments_filename():
@@ -36,7 +36,7 @@ def test_parse_arguments_filename():
     assert result.workspace_path is None
     assert not result.full_path
     assert not result.no_file_ext
-    assert result.file_name
+    assert result.filename
 
 
 def test_parse_arguments_no_file_ext():
@@ -45,7 +45,7 @@ def test_parse_arguments_no_file_ext():
     assert result.workspace_path is None
     assert not result.full_path
     assert result.no_file_ext
-    assert not result.file_name
+    assert not result.filename
 
 
 def test_parse_arguments_full_path():
@@ -54,7 +54,7 @@ def test_parse_arguments_full_path():
     assert result.workspace_path is None
     assert result.full_path
     assert not result.no_file_ext
-    assert not result.file_name
+    assert not result.filename
 
 
 def test_parse_arguments_changelist_filename():
@@ -63,4 +63,4 @@ def test_parse_arguments_changelist_filename():
     assert result.workspace_path is None
     assert not result.full_path
     assert not result.no_file_ext
-    assert result.file_name
+    assert result.filename

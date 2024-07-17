@@ -27,7 +27,7 @@ def validate_input(arguments: list[str]) -> InputData:
         format_options=FormatOptions(
             full_path=arg_data.full_path,
             no_file_ext=arg_data.no_file_ext,
-            file_name=arg_data.file_name,
+            file_name=arg_data.filename,
         )
     )
 

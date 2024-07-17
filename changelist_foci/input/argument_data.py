@@ -19,10 +19,10 @@ class ArgumentData:
     - workspace_path (str | None): The path to the Workspace.xml file, or none if the cwd is project root.
     - full_path (bool): Display the Full File Path.
     - no_file_ext (bool): Remove the File Extension.
-    - file_name (bool): Remove the Parent Directories.
+    - filename (bool): Remove the Parent Directories.
     """
     changelist_name: str | None
     workspace_path: str | None
     full_path: bool
     no_file_ext: bool
-    file_name: bool
+    filename: bool
