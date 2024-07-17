@@ -3,6 +3,7 @@
 from dataclasses import dataclass
 
 from changelist_foci.change_data import ChangeData
+from changelist_foci.format_options import FormatOptions
 
 
 @dataclass(frozen=True)
@@ -23,12 +24,23 @@ class ChangelistData:
     comment: str = ""
     is_default: bool = False
 
-    def get_foci(self) -> str:
+    def get_foci(
+        self,
+        format_options: FormatOptions = FormatOptions(),
+    ) -> str:
         """
         Obtain the FOCI of a Changelist.
+
+        Parameters:
+        - format_options (FormatOptions): The Options controlling text and line formatting.
 
         Returns:
         str - The FOCI string.
         """
-        subject_lines = "\n".join(map(lambda x: f"* {x.get_subject()}", self.changes))
+        subject_lines = "\n".join(
+            map(
+                lambda x: f"* {x.get_subject(format_options)}",
+                self.changes
+            )
+        )
         return f"{self.name}:\n" + subject_lines
