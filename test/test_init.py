@@ -60,12 +60,12 @@ def test_get_change_list_multi_select_active_():
     assert result.id == 'af84ea1b-1b24-407d-970f-9f3a2835e933'
     assert len(result.changes) == 2
     change1 = result.changes[0]
-    assert change1.before_path == '$PROJECT_DIR$/history.py'
+    assert change1.before_path == '/history.py'
     assert change1.before_dir == 'false'
     assert change1.after_path == None
     assert change1.after_dir == None
     change2 = result.changes[1]
-    assert change2.before_path == '$PROJECT_DIR$/main.py'
+    assert change2.before_path == '/main.py'
     assert change2.before_dir == 'false'
     assert change1.after_path == None
     assert change1.after_dir == None

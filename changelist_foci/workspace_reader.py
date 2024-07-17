@@ -68,21 +68,34 @@ def _extract_changelist_manager(workspace_xml: str) -> Element | None:
     return None
 
 
+_PROJECT_DIR_VAR = '$PROJECT_DIR$'
+_PROJECT_DIR_LEN = len(_PROJECT_DIR_VAR)
+
+def _filter_project_dir(path_str: str | None) -> str:
+    """Filter the ProjectDir string at the beginning of the path.
+    """
+    if path_str is None:
+        return None
+    if path_str.startswith(_PROJECT_DIR_VAR):
+        return path_str[_PROJECT_DIR_LEN:]
+    return path_str
+
+
 def _extract_change_data(list_element: Element) -> list[ChangeData]:
     """
     Given a ChangeList XML Element, obtain the List of Changes.
 
     Parameters:
-    - changelist_element (Element): 
+    - list_element (Element): 
 
     Returns:
     list[ChangeData] - The list of structured ChangeData.
     """
     return [
         ChangeData(
-            before_path=get_attr(change, 'beforePath'),
+            before_path=_filter_project_dir(get_attr(change, 'beforePath')),
             before_dir=get_attr(change, 'beforeDir'),
-            after_path=get_attr(change, 'afterPath'),
+            after_path=_filter_project_dir(get_attr(change, 'afterPath')),
             after_dir=get_attr(change, 'afterDir'),
         ) for change in filter(lambda x: x.tag == 'change', list_element)
     ]

@@ -58,6 +58,9 @@ def _validate_arguments(
     return ArgumentData(
         changelist_name=changelist,
         workspace_path=path,
+        full_path=parsed_args.full_path,
+        no_file_ext=parsed_args.no_file_ext,
+        filename=parsed_args.filename,
     )
 
 
@@ -84,5 +87,23 @@ def _define_arguments() -> ArgumentParser:
         type=str,
         default=None,
         help='The Path to the workspace file, or none if cwd is the project root.',
+    )
+    parser.add_argument(
+        '--full-path',
+        action='store_true',
+        default=False,
+        help='Display the Full File Path.',
+    )
+    parser.add_argument(
+        '--no-file-ext', '-x',
+        action='store_true',
+        default=False,
+        help='Remove File Extension from File paths.',
+    )
+    parser.add_argument(
+        '--filename', '-f',
+        action='store_true',
+        default=False,
+        help='Remove Parent Directories from File paths.',
     )
     return parser

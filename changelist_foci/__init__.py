@@ -17,7 +17,7 @@ def get_changelist_foci(
     Returns:
     str - The FOCI formatted output.
     """
-    return _get_change_list(input_data).get_foci()
+    return _get_change_list(input_data).get_foci(input_data.format_options)
 
 
 def _get_change_list(input_data: InputData) -> ChangelistData:
