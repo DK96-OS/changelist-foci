@@ -14,7 +14,11 @@ If the `workspace_path` argument is not provided, it is assumed that the current
 **Changelist Name:** `--changelist`
 The Changelist name is an optional argument, that is used to select which Changelist to obtain the FOCI for.
 
-If the changelist name is not provided, it is assumed that the active changelist `(default = true)` will be the target of the operation.
+If the changelist name is not provided:
+- The active changelist `(default = true)` will be the target of the operation.
+
+**All Changes FOCI:** `-a` or `--all_changes`
+An optional flag that overrides Changelist Name and prints out all Changelists with Changes.
 
 ## File Format Flags
 **Full Path:** `--full-path`
