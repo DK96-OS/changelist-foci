@@ -1,6 +1,5 @@
 """Testing Argument Parser Methods.
 """
-from sympy import false
 from changelist_foci.input.argument_parser import parse_arguments
 
 
@@ -75,7 +74,7 @@ def test_parse_arguments_changelist_filename_returns_data():
 
 
 def test_parse_arguments_all_changes_returns_data():
-    result = parse_arguments(['--all_changes'])
+    result = parse_arguments(['--all-changes'])
     assert result.changelist_name is None
     assert result.workspace_path is None
     assert not result.full_path
