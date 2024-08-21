@@ -20,9 +20,11 @@ class ArgumentData:
     - full_path (bool): Display the Full File Path.
     - no_file_ext (bool): Remove the File Extension.
     - filename (bool): Remove the Parent Directories.
+    - all_changes (bool): Format and Print all Changes from all Changelists.
     """
     changelist_name: str | None
     workspace_path: str | None
     full_path: bool
     no_file_ext: bool
     filename: bool
+    all_changes: bool = False

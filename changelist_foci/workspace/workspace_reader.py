@@ -4,7 +4,7 @@ from xml.etree.ElementTree import Element, ParseError, fromstring
 
 from changelist_foci.change_data import ChangeData
 from changelist_foci.changelist_data import ChangelistData
-from changelist_foci.xml_reader import _read_bool_from, filter_by_tag, get_attr, get_attr_or
+from changelist_foci.workspace.xml_reader import _read_bool_from, filter_by_tag, get_attr, get_attr_or
 
 
 def read_workspace_changelists(workspace_xml: str) -> list[ChangelistData]:

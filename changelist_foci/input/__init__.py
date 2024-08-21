@@ -4,9 +4,11 @@ from pathlib import Path
 from sys import exit
 
 from changelist_foci.format_options import FormatOptions
+from changelist_foci.input.argument_data import ArgumentData
 from changelist_foci.input.argument_parser import parse_arguments
 from changelist_foci.input.file_validation import validate_input_file
 from changelist_foci.input.input_data import InputData
+from changelist_foci.input.string_validation import validate_name
 
 
 def validate_input(arguments: list[str]) -> InputData:
@@ -24,11 +26,8 @@ def validate_input(arguments: list[str]) -> InputData:
         workspace_xml=_find_workspace_xml() if arg_data.workspace_path is None
             else validate_input_file(arg_data.workspace_path),
         changelist_name=arg_data.changelist_name,
-        format_options=FormatOptions(
-            full_path=arg_data.full_path,
-            no_file_ext=arg_data.no_file_ext,
-            file_name=arg_data.filename,
-        )
+        format_options=_extract_format_options(arg_data),
+        all_changes=arg_data.all_changes,
     )
 
 
@@ -50,6 +49,17 @@ def _find_workspace_xml() -> str:
     if not workspace_path.exists():
         exit("The workspace file was not found inside the .idea folder.")
     try:
-        return workspace_path.read_text()
+        data = workspace_path.read_text()
     except:
         exit("Failed to Read the Workspace File.")
+    if validate_name(data):
+        return data
+    exit('Workspace File is empty/blank.')
+
+
+def _extract_format_options(data: ArgumentData) -> FormatOptions:
+    return FormatOptions(
+        full_path=data.full_path,
+        no_file_ext=data.no_file_ext,
+        file_name=data.filename,
+    )

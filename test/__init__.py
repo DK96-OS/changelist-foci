@@ -1,6 +1,10 @@
 """Test Package Initialization.
 """
 
+from changelist_foci.change_data import ChangeData
+from changelist_foci.changelist_data import ChangelistData
+
+
 def get_empty_xml() -> str:
     return ""
 
@@ -41,3 +45,26 @@ def get_multi_changelist_xml() -> str:
     </list>
   </component>
 </project>"""
+
+
+def get_simple_changelist_data() -> ChangelistData:
+    return ChangelistData(
+        id='9f60fda2-421e-4a4b-bd0f-4c8f83a47c88',
+        name="Simple",
+        changes=[ChangeData(before_path='/main.py', before_dir=False, after_path='/main.py', after_dir=False)],
+        comment="Main Program Files",
+        is_default=False,
+    )
+
+
+def get_main_changelist_data() -> ChangelistData:
+    return ChangelistData(
+        id='af84ea1b-1b24-407d-970f-9f3a2835e933',
+        name="Main",
+        changes=[
+            ChangeData(before_path='/history.py', before_dir=False),
+            ChangeData(before_path='/main.py', before_dir=False),
+        ],
+        comment="Main Program Files",
+        is_default=True,
+    )

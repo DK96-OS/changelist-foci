@@ -61,6 +61,7 @@ def _validate_arguments(
         full_path=parsed_args.full_path,
         no_file_ext=parsed_args.no_file_ext,
         filename=parsed_args.filename,
+        all_changes=parsed_args.all_changes
     )
 
 
@@ -73,7 +74,7 @@ def _define_arguments() -> ArgumentParser:
     argparse.ArgumentParser - An instance with all supported Arguments.
     """
     parser = ArgumentParser(
-        description="ChangeList FOCI Producer",
+        description="ChangeList FOCI (File Oriented Commit Information).",
     )
     # Optional Arguments
     parser.add_argument(
@@ -105,5 +106,11 @@ def _define_arguments() -> ArgumentParser:
         action='store_true',
         default=False,
         help='Remove Parent Directories from File paths.',
+    )
+    parser.add_argument(
+        '--all-changes', '-a',
+        action='store_true',
+        default=False,
+        help='Output All Changes in any Changelist.',
     )
     return parser

@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="changelist-foci",
-    version="0.2",
+    version="0.3",
 	description='Changelist FOCI',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
@@ -35,5 +35,6 @@ setup(
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
     ],
 )

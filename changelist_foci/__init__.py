@@ -1,8 +1,8 @@
 """ Package Methods.
 """
+from changelist_foci import workspace
 from changelist_foci.changelist_data import ChangelistData
 from .input.input_data import InputData
-from .workspace_reader import read_workspace_changelists
 
 
 def get_changelist_foci(
@@ -17,32 +17,50 @@ def get_changelist_foci(
     Returns:
     str - The FOCI formatted output.
     """
-    return _get_change_list(input_data).get_foci(input_data.format_options)
+    cl_list = workspace.get_changelists(input_data)
+    return '\n\n'.join(
+        cl.get_foci(input_data.format_options) for cl in _filter_list(input_data, cl_list)
+    )
 
 
-def _get_change_list(input_data: InputData) -> ChangelistData:
+def _filter_list(
+    input_data: InputData,
+    cl_list: list[ChangelistData]
+) -> list[ChangelistData]:
     """
-    Obtain the given Changelist by name, or the Active Changelist if no name was given.
-
-    Parameters:
-    - input_data (InputData): The program Input.
-
-    Returns:
-    ChangelistData - The Changelist requested by the Input Data.
+    Filter the Changelists based on InputData, to determine which changes to output.
     """
-    cl_list = read_workspace_changelists(input_data.workspace_xml)
-    if (cl_name := input_data.changelist_name) not in ["None", None]:
-        # Operate on the given Changelist
-        filtered_list = list(filter(lambda x: x.name == cl_name, cl_list))
-    else:
-        # Active Changelist
-        if len(cl_list) == 1:
-            filtered_list = [cl_list[0]]
-        else:
-            filtered_list = list(filter(lambda x: x.is_default, cl_list))
-    # Ensure that there is only one match
-    if (match_length := len(filtered_list)) < 1:
-        exit(f"Specified Changelist {cl_name} not present.")
-    elif match_length > 1:
-        exit("More than one Changelist found.")
-    return filtered_list[0]
+    if input_data.all_changes:
+        return list(
+            filter(lambda x: len(x.changes) > 0, cl_list)
+        )
+    if input_data.changelist_name not in ["None", None]:
+        return _get_changelist_by_name(
+            cl_list,
+            input_data.changelist_name,
+        )
+    return _get_active_changelist(cl_list)
+
+
+def _get_active_changelist(
+    cl_list: list[ChangelistData],
+) -> list[ChangelistData]:
+    """
+    Find the Active Changelist, or the only changelist.
+    """
+    if len(cl_list) == 1:
+        return [cl_list[0]]
+    return list(filter(lambda x: x.is_default, cl_list))
+
+
+def _get_changelist_by_name(
+    cl_list: list[ChangelistData],
+    changelist_name: str,
+) -> list[ChangelistData]:
+    """
+    Find a Changelist that starts with the given name.
+    """
+    cl = list(filter(lambda x: x.name.startswith(changelist_name), cl_list))
+    if len(cl) == 0:
+        exit(f"Specified Changelist {changelist_name} not present.")
+    return cl

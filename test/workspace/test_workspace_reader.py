@@ -2,7 +2,7 @@
 """
 import pytest
 
-from changelist_foci.workspace_reader import _extract_changelist_manager, _extract_list_elements, _extract_change_data, read_workspace_changelists
+from changelist_foci.workspace.workspace_reader import _extract_changelist_manager, _extract_list_elements, _extract_change_data, read_workspace_changelists
 from test import get_empty_xml, get_no_changelist_xml, get_simple_changelist_xml, get_multi_changelist_xml
 
 

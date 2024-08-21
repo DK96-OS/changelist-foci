@@ -13,7 +13,9 @@ class InputData:
     - workspace_xml (str): The contents of the workspace.xml file.
     - changelist_name (str): The name of the Changelist, or None.
     - format_options (FormatOptions): The options for output formatting.
+    - all_changes (bool): Flag for printing all changes in any Changelist.
     """
     workspace_xml: str
     changelist_name: str | None = None
     format_options: FormatOptions = FormatOptions()
+    all_changes: bool = False
