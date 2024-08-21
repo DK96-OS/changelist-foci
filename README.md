@@ -9,7 +9,7 @@ The Changelist Data is then processed to obtain the FOCI (File Oriented Commit I
 **Workspace Path:** `--workspace`
 The Workspace path is an optional argument, which is used to load the workspace file contents.
 
-If the `workspace_path` argument is not provided, it is assumed that the current working directory is the project root directory.
+If the `--workspace` argument is not provided, it is assumed that the current working directory is the project root directory.
 
 **Changelist Name:** `--changelist`
 The Changelist name is an optional argument, that is used to select which Changelist to obtain the FOCI for.
@@ -17,7 +17,7 @@ The Changelist name is an optional argument, that is used to select which Change
 If the changelist name is not provided:
 - The active changelist `(default = true)` will be the target of the operation.
 
-**All Changes FOCI:** `-a` or `--all_changes`
+**All Changes FOCI:** `-a` or `--all-changes`
 An optional flag that overrides Changelist Name and prints out all Changelists with Changes.
 
 ## File Format Flags
