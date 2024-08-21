@@ -108,7 +108,7 @@ def _define_arguments() -> ArgumentParser:
         help='Remove Parent Directories from File paths.',
     )
     parser.add_argument(
-        '--all_changes', '-a',
+        '--all-changes', '-a',
         action='store_true',
         default=False,
         help='Output All Changes in any Changelist.',
