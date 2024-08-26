@@ -13,6 +13,12 @@ def test_parse_arguments_empty_list_returns_data():
     assert not result.all_changes
 
 
+def test_parse_arguments_none_returns_same_as_empty_list():
+    empty_list = parse_arguments([])
+    assert empty_list == parse_arguments()
+    assert empty_list == parse_arguments('')
+
+
 def test_parse_arguments_change_list_main_returns_data():
     result = parse_arguments(['--changelist', 'Main'])
     assert result.changelist_name == 'Main'

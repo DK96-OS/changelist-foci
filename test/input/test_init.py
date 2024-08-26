@@ -91,6 +91,3 @@ def test_validate_input_file_is_empty_raises_exit():
         except SystemExit:
             raised_exit = True
     assert raised_exit
-
-
-
