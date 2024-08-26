@@ -22,9 +22,9 @@ class ArgumentData:
     - filename (bool): Remove the Parent Directories.
     - all_changes (bool): Format and Print all Changes from all Changelists.
     """
-    changelist_name: str | None
-    workspace_path: str | None
-    full_path: bool
-    no_file_ext: bool
-    filename: bool
+    changelist_name: str | None = None
+    workspace_path: str | None = None
+    full_path: bool = False
+    no_file_ext: bool = False
+    filename: bool = False
     all_changes: bool = False
