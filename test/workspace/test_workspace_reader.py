@@ -1,8 +1,7 @@
 """Testing Changelist Reader Methods.
 """
-import pytest
 
-from changelist_foci.workspace.workspace_reader import _extract_changelist_manager, _extract_list_elements, _extract_change_data, read_workspace_changelists
+from changelist_foci.workspace.workspace_reader import _extract_changelist_manager, read_workspace_changelists
 from test import get_empty_xml, get_no_changelist_xml, get_simple_changelist_xml, get_multi_changelist_xml
 
 
@@ -50,7 +49,7 @@ def test_read_workspace_changelists_simple_returns_single_changelist():
     assert result_cl.name == "Simple"
     assert result_cl.comment == "Main Program Files"
     assert result_cl.id == "9f60fda2-421e-4a4b-bd0f-4c8f83a47c88"
-    assert result_cl.is_default == False
+    assert not result_cl.is_default
     # Check Length of Changes
     change_length = len(result_cl.changes)
     assert 1 == change_length
@@ -65,10 +64,10 @@ def test_read_workspace_changelists_multi_returns_2_changelists():
     assert result_c1.name == "Main"
     assert result_c1.comment == "Main Program Files"
     assert result_c1.id == "af84ea1b-1b24-407d-970f-9f3a2835e933"
-    assert result_c1.is_default == True
+    assert result_c1.is_default
     #
     assert result_c2.name == "Test"
     assert result_c2.comment == "Test Files"
     assert result_c2.id == "9f60fda2-421e-4a4b-bd0f-4c8f83a47c88"
-    assert result_c2.is_default == False
+    assert not result_c2.is_default
 
