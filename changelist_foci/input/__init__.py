@@ -50,7 +50,11 @@ def _find_workspace_xml() -> str:
         exit("The workspace file was not found inside the .idea folder.")
     try:
         data = workspace_path.read_text()
-    except:
+    except FileNotFoundError:
+        exit("The Workspace File was not found.")
+    except PermissionError:
+        exit("The Workspace File could not be accessed.")
+    except (IOError, OSError):
         exit("Failed to Read the Workspace File.")
     if validate_name(data):
         return data
