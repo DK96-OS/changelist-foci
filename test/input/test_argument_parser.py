@@ -5,7 +5,7 @@ from changelist_foci.input.argument_parser import parse_arguments
 
 def test_parse_arguments_empty_list_returns_data():
     result = parse_arguments('')
-    assert result.changelist_name == None
+    assert result.changelist_name is None
     assert result.workspace_path is None
     assert not result.full_path
     assert not result.no_file_ext
