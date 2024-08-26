@@ -67,24 +67,24 @@ def test_change_data_get_subject_move_returns_str():
 
 def test_get_subject_format_no_file_ext_returns_str():
     result = get_before_cd().get_subject(FormatOptions(no_file_ext=True))
-    assert result == f"Remove main_package/__main__"
+    assert result == "Remove main_package/__main__"
 
 
 def test_get_subject_remove_format_no_file_ext_returns_str():
     result = get_before_cd().get_subject(FormatOptions(no_file_ext=True))
-    assert result == f"Remove main_package/__main__"
+    assert result == "Remove main_package/__main__"
 
 
 def test_get_subject_create_format_no_file_ext_returns_str():
     result = get_after_cd().get_subject(FormatOptions(no_file_ext=True))
-    assert result == f"Create main_package/__main__"
+    assert result == "Create main_package/__main__"
 
 
 def test_get_subject_update_format_no_file_ext_returns_str():
     result = get_both_cd().get_subject(FormatOptions(no_file_ext=True))
-    assert result == f"Update main_package/__main__"
+    assert result == "Update main_package/__main__"
 
 
 def test_get_subject_move_format_no_file_ext_returns_str():
     result = get_move_cd().get_subject(FormatOptions(no_file_ext=True))
-    assert result == f"Move main_package/__init__ to main_package/__main__"
+    assert result == "Move main_package/__init__ to main_package/__main__"

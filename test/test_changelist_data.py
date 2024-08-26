@@ -1,7 +1,6 @@
 """Testing ChangeList Data
 """
 
-from fileinput import filename
 from changelist_foci.change_data import ChangeData
 from changelist_foci.changelist_data import ChangelistData
 from changelist_foci.format_options import FormatOptions
