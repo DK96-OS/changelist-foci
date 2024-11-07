@@ -34,7 +34,7 @@ def _get_changelists(input_data: InputData) -> list[Changelist]:
     if input_data.workspace_xml is not None:
         return storage.workspace.read_xml(input_data.workspace_xml)
     # todo: Update InputData for more data storage options
-    #
+    return []
 
 
 def _filter_list(
