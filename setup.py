@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="changelist-foci",
-    version="0.3",
+    version="0.4",
 	description='Changelist FOCI',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
