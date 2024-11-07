@@ -1,7 +1,8 @@
 """ Package Methods.
 """
-from changelist_foci import workspace
-from changelist_foci.changelist_data import ChangelistData
+from changelist_data import Changelist, storage
+
+from .foci_writer import generate_foci
 from .input.input_data import InputData
 
 
@@ -17,16 +18,29 @@ def get_changelist_foci(
     Returns:
     str - The FOCI formatted output.
     """
-    cl_list = workspace.get_changelists(input_data)
+    cl_list = _get_changelists(input_data)
     return '\n\n'.join(
-        cl.get_foci(input_data.format_options) for cl in _filter_list(input_data, cl_list)
+        generate_foci(cl, input_data.format_options)
+        for cl in _filter_list(input_data, cl_list)
     )
+
+
+def _get_changelists(input_data: InputData) -> list[Changelist]:
+    """
+    Obtain all Changelists in a list.
+    - Uses the XML string provided by InputData.
+    - Applies workspace_reader module.
+    """
+    if input_data.workspace_xml is not None:
+        return storage.workspace.read_xml(input_data.workspace_xml)
+    # todo: Update InputData for more data storage options
+    #
 
 
 def _filter_list(
     input_data: InputData,
-    cl_list: list[ChangelistData]
-) -> list[ChangelistData]:
+    cl_list: list[Changelist]
+) -> list[Changelist]:
     """
     Filter the Changelists based on InputData, to determine which changes to output.
     """
@@ -43,8 +57,8 @@ def _filter_list(
 
 
 def _get_active_changelist(
-    cl_list: list[ChangelistData],
-) -> list[ChangelistData]:
+    cl_list: list[Changelist],
+) -> list[Changelist]:
     """
     Find the Active Changelist, or the only changelist.
     """
@@ -54,9 +68,9 @@ def _get_active_changelist(
 
 
 def _get_changelist_by_name(
-    cl_list: list[ChangelistData],
+    cl_list: list[Changelist],
     changelist_name: str,
-) -> list[ChangelistData]:
+) -> list[Changelist]:
     """
     Find a Changelist that starts with the given name.
     """
