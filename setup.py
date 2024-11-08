@@ -16,6 +16,9 @@ setup(
 	},
 	license='GPLv3',
     packages=find_packages(exclude=['test']),
+    install_requires=[
+        'changelist-data=0.1',
+    ],
     entry_points={
         'console_scripts': [
             'changelist-foci=changelist_foci.__main__:main',
