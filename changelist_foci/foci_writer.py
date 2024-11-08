@@ -1,6 +1,6 @@
 """ Methods for Writing FOCI formatted text
 """
-from changelist_data import Changelist
+from changelist_data.changelist import Changelist
 from changelist_data.file_change import FileChange
 
 from changelist_foci.format_options import FormatOptions
