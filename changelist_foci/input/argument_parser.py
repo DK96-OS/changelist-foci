@@ -8,8 +8,8 @@ from argparse import ArgumentParser
 from sys import exit
 from typing import Optional
 
-from .argument_data import ArgumentData
-from .string_validation import validate_name
+from changelist_foci.input.argument_data import ArgumentData
+from changelist_foci.input.string_validation import validate_name
 
 
 def parse_arguments(args: Optional[list[str]] = None) -> ArgumentData:
@@ -45,18 +45,22 @@ def _validate_arguments(
     Returns:
     ArgumentData - A DataClass of syntactically correct arguments.
     """
-    changelist = parsed_args.changelist
-    path = parsed_args.workspace
-    # Validate Names
-    if changelist is not None:
+    # Validate Changelist Name
+    if (changelist := parsed_args.changelist) is not None:
         if not validate_name(changelist):
             exit("The ChangeList Name was invalid.")
-    if path is not None:
+    # Check Changelist Path Argument
+    if (cl_path := parsed_args.changelists_path) is not None:
+        if not validate_name(cl_path):
+            exit("The Changelists Path argument was invalid.")
+    # Check Workspace Argument
+    if (path := parsed_args.workspace_path) is not None:
         if not validate_name(path):
             exit("The Workspace Path argument was invalid.")
     #
     return ArgumentData(
         changelist_name=changelist,
+        changelists_path=cl_path,
         workspace_path=path,
         full_path=parsed_args.full_path,
         no_file_ext=parsed_args.no_file_ext,
@@ -81,13 +85,19 @@ def _define_arguments() -> ArgumentParser:
         '--changelist',
         type=str,
         default=None,
-        help='The Workspace File containing the ChangeList data.'
+        help='The Name of the ChangeList to focus on. Uses Active Changelist by default.'
     )
     parser.add_argument(
-        '--workspace',
+        '--changelists_file',
         type=str,
         default=None,
-        help='The Path to the workspace file, or none if cwd is the project root.',
+        help='The Path to the Changelists file. Searches default path if not given.',
+    )
+    parser.add_argument(
+        '--workspace_file', '--workspace',
+        type=str,
+        default=None,
+        help='The Path to the workspace file. Searches default path if not given.',
     )
     parser.add_argument(
         '--full-path',
