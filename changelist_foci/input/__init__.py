@@ -3,17 +3,24 @@
 from pathlib import Path
 from sys import exit
 
+from changelist_data.changelist import Changelist
+from changelist_data.storage import read_storage
+from changelist_data.storage.storage_type import StorageType
+
 from changelist_foci.format_options import FormatOptions
 from changelist_foci.input.argument_data import ArgumentData
 from changelist_foci.input.argument_parser import parse_arguments
-from changelist_foci.input.file_validation import validate_input_file
 from changelist_foci.input.input_data import InputData
 from changelist_foci.input.string_validation import validate_name
 
 
-def validate_input(arguments: list[str]) -> InputData:
-    """
-    Given the Command Line Arguments, obtain the InputData.
+def validate_input(
+    arguments: list[str],
+) -> InputData:
+    """ Given the Command Line Arguments, obtain the InputData.
+        1. Parse arguments with argument parser
+        2. Check File Arguments, read Storage
+        3. Return Structured Input Data
 
     Parameters:
     - arguments (list[str]): The Command Line Arguments received by the program.
@@ -22,46 +29,46 @@ def validate_input(arguments: list[str]) -> InputData:
     InputData - The formatted InputData.
     """
     arg_data = parse_arguments(arguments)
+    #
+    data_list = _read_storage_file(
+        arg_data.changelists_path,
+        arg_data.workspace_path
+    )
     return InputData(
-        workspace_xml=_find_workspace_xml() if arg_data.workspace_path is None
-            else validate_input_file(arg_data.workspace_path),
+        changelists=data_list,
         changelist_name=arg_data.changelist_name,
         format_options=_extract_format_options(arg_data),
         all_changes=arg_data.all_changes,
     )
 
 
-def _find_workspace_xml() -> str:
+def _read_storage_file(
+    changelists_file: str | None,
+    workspace_file: str | None,
+) -> list[Changelist]:
+    """ Process the Given File Arguments, and read from Storage.
+    Storage is managed by changelist_data package.
+
+    Parameters:
+    - changelists_file (str | None): A string path to the Changelists file, if specified.
+    - workspace_file (str | None): A string path to the Workspace file, if specified.
+
+    Returns:
+    list[Changelist] - The Changelist data from the storage file.
     """
-    Assuming that the current directory is the root project directory, try to find the workspace file.
-    
-    Return:
-    str - The workspace.xml file contents.
-
-    Raises:
-    SystemExit - If the .idea folder or the workspace file was not found, or failed to read.
-    """
-    current_dir = Path('.')
-    idea_dir = current_dir / '.idea'
-    if not idea_dir.exists():
-        exit("The Current Directory must contain the .idea folder if workspace file path is not provided.")
-    workspace_path = idea_dir / 'workspace.xml'
-    if not workspace_path.exists():
-        exit("The workspace file was not found inside the .idea folder.")
-    try:
-        data = workspace_path.read_text()
-    except FileNotFoundError:
-        exit("The Workspace File was not found.")
-    except PermissionError:
-        exit("The Workspace File could not be accessed.")
-    except (IOError, OSError):
-        exit("Failed to Read the Workspace File.")
-    if validate_name(data):
-        return data
-    exit('Workspace File is empty/blank.')
+    if isinstance(changelists_file, str) and isinstance(workspace_file, str):
+        exit("Cannot use two Data Files!")
+    if validate_name(changelists_file):
+        return read_storage(StorageType.CHANGELISTS, Path(changelists_file))
+    if validate_name(workspace_file):
+        return read_storage(StorageType.WORKSPACE, Path(workspace_file))
+    return read_storage()
 
 
-def _extract_format_options(data: ArgumentData) -> FormatOptions:
+def _extract_format_options(
+    data: ArgumentData,
+) -> FormatOptions:
+    # Map Property names
     return FormatOptions(
         full_path=data.full_path,
         no_file_ext=data.no_file_ext,
