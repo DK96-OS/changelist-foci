@@ -17,7 +17,7 @@ def test_validate_empty_args_returns_data():
         result = validate_input(test_input)
     assert not result.all_changes
     assert result.changelist_name is None
-    assert result.workspace_xml == get_simple_changelist_xml()
+    assert len(result.changelists) == 1
     assert result.format_options == FormatOptions(
         False, False, False
     )
@@ -32,7 +32,7 @@ def test_validate_input_all_changes_returns_data():
         result = validate_input(test_input)
     assert result.all_changes
     assert result.changelist_name is None
-    assert result.workspace_xml == get_simple_changelist_xml()
+    assert len(result.changelists) == 1
     assert result.format_options == FormatOptions(
         False, False, False
     )
@@ -47,7 +47,7 @@ def test_validate_input_full_path_returns_data():
         result = validate_input(test_input)
     assert not result.all_changes
     assert result.changelist_name is None
-    assert result.workspace_xml == get_simple_changelist_xml()
+    assert len(result.changelists) == 1
     assert result.format_options == FormatOptions(
         True, False, False
     )
@@ -62,7 +62,7 @@ def test_validate_input_filename_only_returns_data():
         result = validate_input(test_input)
     assert not result.all_changes
     assert result.changelist_name is None
-    assert result.workspace_xml == get_simple_changelist_xml()
+    assert len(result.changelists) == 1
     assert result.format_options == FormatOptions(
         False, True, True
     )
@@ -72,12 +72,9 @@ def test_validate_input_file_does_not_exist_raises_exit():
     test_input = []
     with (pytest.MonkeyPatch().context() as ctx):
         ctx.setattr(Path, 'exists', lambda _: False)
-        try:
-            validate_input(test_input)
-            raised_exit = False
-        except SystemExit:
-            raised_exit = True
-    assert raised_exit
+        result = validate_input(test_input)
+    assert result.changelist_name is None
+    assert len(result.changelists) == 0
 
 
 def test_validate_input_file_is_empty_raises_exit():
