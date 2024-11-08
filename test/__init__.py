@@ -1,6 +1,6 @@
 """Test Package Initialization.
 """
-from changelist_data import Changelist
+from changelist_data.changelist import Changelist
 from changelist_data.file_change import FileChange
 
 
