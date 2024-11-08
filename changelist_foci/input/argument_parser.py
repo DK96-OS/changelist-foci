@@ -50,13 +50,13 @@ def _validate_arguments(
         if not validate_name(changelist):
             exit("The ChangeList Name was invalid.")
     # Check Changelist Path Argument
-    if (cl_path := parsed_args.changelists_path) is not None:
+    if (cl_path := parsed_args.changelists_file) is not None:
         if not validate_name(cl_path):
-            exit("The Changelists Path argument was invalid.")
+            exit("changelists_file argument invalid.")
     # Check Workspace Argument
-    if (path := parsed_args.workspace_path) is not None:
+    if (path := parsed_args.workspace_file) is not None:
         if not validate_name(path):
-            exit("The Workspace Path argument was invalid.")
+            exit("workspace_path argument invalid.")
     #
     return ArgumentData(
         changelist_name=changelist,
