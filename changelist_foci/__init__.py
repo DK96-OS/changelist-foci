@@ -1,8 +1,9 @@
 """ Package Methods.
 """
-from changelist_foci import workspace
-from changelist_foci.changelist_data import ChangelistData
-from .input.input_data import InputData
+from changelist_data.changelist import Changelist
+
+from changelist_foci.foci_writer import generate_foci
+from changelist_foci.input.input_data import InputData
 
 
 def get_changelist_foci(
@@ -17,34 +18,33 @@ def get_changelist_foci(
     Returns:
     str - The FOCI formatted output.
     """
-    cl_list = workspace.get_changelists(input_data)
     return '\n\n'.join(
-        cl.get_foci(input_data.format_options) for cl in _filter_list(input_data, cl_list)
+        generate_foci(cl, input_data.format_options)
+        for cl in _filter_list(input_data)
     )
 
 
 def _filter_list(
     input_data: InputData,
-    cl_list: list[ChangelistData]
-) -> list[ChangelistData]:
+) -> list[Changelist]:
     """
     Filter the Changelists based on InputData, to determine which changes to output.
     """
     if input_data.all_changes:
         return list(
-            filter(lambda x: len(x.changes) > 0, cl_list)
+            filter(lambda x: len(x.changes) > 0, input_data.changelists)
         )
     if input_data.changelist_name not in ["None", None]:
         return _get_changelist_by_name(
-            cl_list,
+            input_data.changelists,
             input_data.changelist_name,
         )
-    return _get_active_changelist(cl_list)
+    return _get_active_changelist(input_data.changelists)
 
 
 def _get_active_changelist(
-    cl_list: list[ChangelistData],
-) -> list[ChangelistData]:
+    cl_list: list[Changelist],
+) -> list[Changelist]:
     """
     Find the Active Changelist, or the only changelist.
     """
@@ -54,9 +54,9 @@ def _get_active_changelist(
 
 
 def _get_changelist_by_name(
-    cl_list: list[ChangelistData],
+    cl_list: list[Changelist],
     changelist_name: str,
-) -> list[ChangelistData]:
+) -> list[Changelist]:
     """
     Find a Changelist that starts with the given name.
     """

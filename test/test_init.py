@@ -1,14 +1,15 @@
 """Testing Changelist Foci Module Initialization Methods.
 """
+from changelist_data.xml.workspace import read_xml
+
 from changelist_foci import get_changelist_foci, _filter_list
 from changelist_foci.input.input_data import InputData
-from . import get_main_changelist_data, get_simple_changelist_data, get_simple_changelist_xml, get_multi_changelist_xml
-
+from . import get_simple_changelist_xml, get_multi_changelist_xml
 
 
 def test_get_changelist_foci_simple_changelist():
     test_input = InputData(
-        workspace_xml=get_simple_changelist_xml(),
+        changelists=read_xml(get_simple_changelist_xml()),
         changelist_name=None,
     )
     result = get_changelist_foci(test_input)
@@ -17,7 +18,7 @@ def test_get_changelist_foci_simple_changelist():
 
 def test_get_changelist_foci_multi_changelist():
     test_input = InputData(
-        workspace_xml=get_multi_changelist_xml(),
+        changelists=read_xml(get_multi_changelist_xml()),
         changelist_name=None,
     )
     result = get_changelist_foci(test_input)
@@ -26,7 +27,7 @@ def test_get_changelist_foci_multi_changelist():
 
 def test_get_changelist_foci_multi_changelist_test_cl():
     test_input = InputData(
-        workspace_xml=get_multi_changelist_xml(),
+        changelists=read_xml(get_multi_changelist_xml()),
         changelist_name='Test',
     )
     result = get_changelist_foci(test_input)
@@ -35,7 +36,7 @@ def test_get_changelist_foci_multi_changelist_test_cl():
 
 def test_get_changelist_foci_multi_changelist_test_cl_lowercase_raises_exit():
     test_input = InputData(
-        workspace_xml=get_multi_changelist_xml(),
+        changelists=read_xml(get_multi_changelist_xml()),
         changelist_name='test',
     )
     try:
@@ -48,7 +49,7 @@ def test_get_changelist_foci_multi_changelist_test_cl_lowercase_raises_exit():
 
 def test_get_changelist_foci_multi_changelist_all_changes():
     test_input = InputData(
-        workspace_xml=get_multi_changelist_xml(),
+        changelists=read_xml(get_multi_changelist_xml()),
         changelist_name=None,
         all_changes=True,
     )
@@ -58,7 +59,7 @@ def test_get_changelist_foci_multi_changelist_all_changes():
 
 def test_get_changelist_foci_multi_changelist_name_not_present():
     test_input = InputData(
-        workspace_xml=get_multi_changelist_xml(),
+        changelists=read_xml(get_multi_changelist_xml()),
         changelist_name='Missing Name',
     )
     try:
@@ -71,10 +72,10 @@ def test_get_changelist_foci_multi_changelist_name_not_present():
 
 def test_filter_list_simple_select_active_():
     input_data = InputData(
-        workspace_xml=get_simple_changelist_xml(),
+        changelists=read_xml(get_simple_changelist_xml()),
         changelist_name=None,
     )
-    result = _filter_list(input_data, [get_simple_changelist_data()])[0]
+    result = _filter_list(input_data)[0]
     assert result.name == 'Simple'
     assert result.comment == 'Main Program Files'
     assert result.id == '9f60fda2-421e-4a4b-bd0f-4c8f83a47c88'
@@ -86,10 +87,10 @@ def test_filter_list_simple_select_active_():
 
 def test_filter_list_simple_select_simple_():
     input_data = InputData(
-        workspace_xml=get_simple_changelist_xml(),
+        changelists=read_xml(get_simple_changelist_xml()),
         changelist_name='Simple',
     )
-    result = _filter_list(input_data, [get_simple_changelist_data()])[0]
+    result = _filter_list(input_data)[0]
     assert result.name == 'Simple'
     assert result.comment == 'Main Program Files'
     assert result.id == '9f60fda2-421e-4a4b-bd0f-4c8f83a47c88'
@@ -101,10 +102,10 @@ def test_filter_list_simple_select_simple_():
 
 def test_filter_list_simple_select_():
     input_data = InputData(
-        workspace_xml=get_simple_changelist_xml(),
+        changelists=read_xml(get_simple_changelist_xml()),
         changelist_name='Simple',
     )
-    result = _filter_list(input_data, [get_simple_changelist_data()])[0]
+    result = _filter_list(input_data)[0]
     assert result.name == 'Simple'
     assert result.comment == 'Main Program Files'
     assert result.id == '9f60fda2-421e-4a4b-bd0f-4c8f83a47c88'
@@ -116,9 +117,9 @@ def test_filter_list_simple_select_():
 
 def test_filter_list_multi_select_active_():
     input_data = InputData(
-        workspace_xml=get_multi_changelist_xml(),
+        changelists=read_xml(get_multi_changelist_xml()),
     )
-    result = _filter_list(input_data, [get_main_changelist_data()])[0]
+    result = _filter_list(input_data)[0]
     assert result.name == 'Main'
     assert result.comment == 'Main Program Files'
     assert result.id == 'af84ea1b-1b24-407d-970f-9f3a2835e933'

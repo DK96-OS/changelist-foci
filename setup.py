@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="changelist-foci",
-    version="0.3",
+    version="0.4",
 	description='Changelist FOCI',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
@@ -16,6 +16,9 @@ setup(
 	},
 	license='GPLv3',
     packages=find_packages(exclude=['test']),
+    install_requires=[
+        'changelist-data=0.1',
+    ],
     entry_points={
         'console_scripts': [
             'changelist-foci=changelist_foci.__main__:main',

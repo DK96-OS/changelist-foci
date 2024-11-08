@@ -2,6 +2,8 @@
 """
 from dataclasses import dataclass
 
+from changelist_data.changelist import Changelist
+
 from changelist_foci.format_options import FormatOptions
 
 
@@ -10,12 +12,12 @@ class InputData:
     """A Data Class Containing Program Input.
 
     Fields:
-    - workspace_xml (str): The contents of the workspace.xml file.
+    - changelists (list[Changelist]): The list of changelist data to process.
     - changelist_name (str): The name of the Changelist, or None.
     - format_options (FormatOptions): The options for output formatting.
     - all_changes (bool): Flag for printing all changes in any Changelist.
     """
-    workspace_xml: str
+    changelists: list[Changelist]
     changelist_name: str | None = None
     format_options: FormatOptions = FormatOptions()
     all_changes: bool = False
