@@ -11,13 +11,15 @@ class FormatOptions:
     - full_path (bool): Whether to display the full path to the file.
     - no_file_ext (bool): Whether to filter file extensions (except move with different extensions).
     - file_name (bool): Whether to display the file name. Removes any parent directories.
+    - markdown (bool): Whether to format output in markdown.
     """
     full_path: bool = False
     no_file_ext: bool = False
     file_name: bool = False
+    markdown: bool = False
 
     def format(self, path: str) -> str:
-        """Format a Path String, applying the given options.
+        """ Format a Path String, applying the given options.
 
         Parameters:
         - path (str): The relative (project root) path string in Change Data.
