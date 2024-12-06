@@ -1,0 +1,26 @@
+<sorting>
+    <changelist name="CL-FOCI Input Package">
+        <files path_start="changelist_foci/input" />
+    </changelist>
+    <changelist key="CL-FOCI Main Package">
+        <files path_start="changelist_foci/" />
+    </changelist>
+    <changelist key="Test Input Package">
+        <files path_start="test/input" />
+    </changelist>
+    <changelist key="Test Main Package">
+        <files path_start="test/" />
+    </changelist>
+    <changelist key="Documentation">
+        <files file_ext="md" />
+    </changelist>
+    <changelist key="GitHub Workflows">
+        <files path_start=".github/workflows" />
+        <files file_ext="yml" />
+    </changelist>
+    <changelist key="GitHub Dependabot">
+        <files path_start=".github/" />
+        <files filename_prefix="dependabot" />
+        <files file_ext="yml" />
+    </changelist>
+</sorting>
