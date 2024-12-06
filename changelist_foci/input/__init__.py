@@ -73,4 +73,5 @@ def _extract_format_options(
         full_path=data.full_path,
         no_file_ext=data.no_file_ext,
         file_name=data.filename,
+        markdown=data.markdown,
     )
