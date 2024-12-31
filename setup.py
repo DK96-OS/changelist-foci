@@ -2,6 +2,7 @@
 """
 from setuptools import setup, find_packages
 
+
 setup(
     name="changelist-foci",
     version="0.4.2",
@@ -15,9 +16,9 @@ setup(
 		"Source Code": "https://github.com/DK96-OS/changelist-foci",
 	},
 	license='GPLv3',
-    packages=find_packages(exclude=['test']),
+    packages=find_packages(exclude=['test', 'test.*']),
     install_requires=[
-        'changelist-data >= 0.1.4, < 0.2',
+        'changelist-data >= 0.1.5, < 0.2',
     ],
     entry_points={
         'console_scripts': [
