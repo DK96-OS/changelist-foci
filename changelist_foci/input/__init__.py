@@ -29,13 +29,8 @@ def validate_input(
     InputData - The formatted InputData.
     """
     arg_data = parse_arguments(arguments)
-    #
-    data_list = _read_storage_file(
-        arg_data.changelists_path,
-        arg_data.workspace_path
-    )
     return InputData(
-        changelists=data_list,
+        changelists=_read_storage_file(arg_data.changelists_path, arg_data.workspace_path),
         changelist_name=arg_data.changelist_name,
         format_options=_extract_format_options(arg_data),
         all_changes=arg_data.all_changes,
