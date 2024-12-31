@@ -127,3 +127,21 @@ def test_parse_arguments_changelist_argument_missing_raises_exit():
     except SystemExit:
         raised_exit = True
     assert raised_exit
+
+
+def test_parse_arguments_changelist_file_argument_blank_raises_exit():
+    try:
+        parse_arguments(['--changelists_file', ''])
+        raised_exit = False
+    except SystemExit:
+        raised_exit = True
+    assert raised_exit
+
+
+def test_parse_arguments_workspace_file_argument_blank_raises_exit():
+    try:
+        parse_arguments(['--workspace_file', ''])
+        raised_exit = False
+    except SystemExit:
+        raised_exit = True
+    assert raised_exit
