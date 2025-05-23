@@ -53,6 +53,10 @@ def test_generate_foci_1_filename_plus_no_file_ext_returns_str(simple_cl1):
     assert result == "ChangeList:\n* Create file"
 
 
+def test_get_file_subject_empty_fc_returns_empty_str():
+    assert '' == get_file_subject(FileChange())
+
+
 def test_get_file_subject_before_returns_str():
     result = get_file_subject(get_before_cd())
     assert result == f'Remove {REL_FILE_PATH_1}'

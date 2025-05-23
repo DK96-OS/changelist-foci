@@ -53,6 +53,46 @@ def get_multi_changelist_xml() -> str:
 </project>"""
 
 
+@pytest.fixture()
+def empty_changelists_xml() -> str:
+    return """<?xml version="1.0" encoding="UTF-8"?>
+<changelists></changelists>"""
+
+
+@pytest.fixture()
+def simple_changelists_xml() -> str:
+    return """<?xml version="1.0" encoding="UTF-8"?>
+<changelists>
+<list id="9f60fda2-421e-4a4b-bd0f-4c8f83a47c88" name="Simple" comment="Main Program Files">
+  <change beforePath="/main.py" beforeDir="false"  afterPath="/main.py" afterDir="false" />
+</list>
+</changelists>"""
+
+
+@pytest.fixture()
+def multi_changelists_xml() -> str:
+    return """<?xml version="1.0" encoding="UTF-8"?>
+<changelists>
+<list default="true" id="af84ea1b-1b24-407d-970f-9f3a2835e933" name="Main" comment="Main Program Files">
+  <change beforePath="/history.py" beforeDir="false" />
+  <change beforePath="/main.py" beforeDir="false" />
+</list>
+<list id="9f60fda2-421e-4a4b-bd0f-4c8f83a47c88" name="Test" comment="Test Files">
+  <change afterPath="/test/test_file.py" afterDir="false" />
+</list>
+</changelists>"""
+
+
+@pytest.fixture()
+def invalid_changelists_xml() -> str:
+    return """<?xml version="1.0" encoding="UTF-8"?>
+<changelists>
+<lisat id="9f60fda2-421e-4a4b-bd0f-4c8f83a47c88" name="Main" comment="Main Files">
+  <change beforePath="/main.py" beforeDir="false" />
+</lisat>
+</changelists>"""
+
+
 def get_simple_changelist_data() -> Changelist:
     return Changelist(
         id='9f60fda2-421e-4a4b-bd0f-4c8f83a47c88',
