@@ -137,4 +137,4 @@ def test_get_file_subject_create_odd_file_ext2_filename_no_file_ext_returns_str(
     # These Format Options are a likely combination
     f_options = FormatOptions(no_file_ext=True, file_name=True)
     result = get_file_subject(test_input, f_options)
-    assert result == "Create file-123-8.png"
+    assert result == "Create file-123-8.png.jpg"

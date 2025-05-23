@@ -1,5 +1,6 @@
 """Testing Changelist Foci Module Initialization Methods.
 """
+import pytest
 from changelist_data.xml.workspace import read_xml
 
 from changelist_foci import get_changelist_foci
@@ -39,8 +40,8 @@ def test_get_changelist_foci_multi_changelist_test_cl_lowercase_returns_empty_st
         changelists=read_xml(get_multi_changelist_xml()),
         changelist_name='test',
     )
-    result = get_changelist_foci(test_input)
-    assert result == ''
+    with pytest.raises(SystemExit, match='Specified Changelist test not present.'):
+        get_changelist_foci(test_input)
 
 
 def test_get_changelist_foci_multi_changelist_all_changes():
@@ -59,14 +60,10 @@ def test_get_changelist_foci_multi_changelist_all_changes():
     assert "* Create test/test_file.py" in result
 
 
-def test_get_changelist_foci_multi_changelist_name_not_present():
+def test_get_changelist_foci_multi_changelist_name_not_present_raises_exit():
     test_input = InputData(
         changelists=read_xml(get_multi_changelist_xml()),
         changelist_name='Missing Name',
     )
-    try:
+    with pytest.raises(SystemExit, match='Specified Changelist Missing Name not present.'):
         get_changelist_foci(test_input)
-        raised_exit = False
-    except SystemExit:
-        raised_exit = True
-    assert raised_exit
