@@ -3,14 +3,15 @@
 from changelist_data.changelist import Changelist
 from changelist_data.file_change import FileChange
 
-from changelist_foci.format_options import FormatOptions
+from changelist_foci.format_options import FormatOptions, DEFAULT_FORMAT_OPTIONS
 
 
 def generate_foci(
     changelist: Changelist,
-    format_options: FormatOptions = FormatOptions(),
+    format_options: FormatOptions = DEFAULT_FORMAT_OPTIONS,
 ) -> str:
-    """Obtain the FOCI of a Changelist.
+    """ Obtain the FOCI of a Changelist.
+    - Note: is not a generator method.
 
     Parameters:
     - changelist (Changelist): The Changelist to process and format.
@@ -29,10 +30,9 @@ def generate_foci(
 
 def get_file_subject(
     file: FileChange,
-    format_options: FormatOptions = FormatOptions(),
+    format_options: FormatOptions = DEFAULT_FORMAT_OPTIONS,
 ) -> str:
-    """
-    Obtain the FOCI Subject, categorizing the change and applying Format Options.
+    """ Obtain the FOCI Subject, categorizing the change and applying Format Options.
 
     Parameters:
     - file (FileChange): The FileChange to process and format.
