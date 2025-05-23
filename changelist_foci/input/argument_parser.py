@@ -1,8 +1,6 @@
-"""Defines and Validates Argument Syntax.
-
-Encapsulates Argument Parser.
-
-Returns Argument Data, the args provided by the User.
+""" Defines and Validates Argument Syntax.
+ - Encapsulates Argument Parser.
+ - Returns Argument Data, the args provided by the User.
 """
 from argparse import ArgumentParser
 from sys import exit
@@ -13,14 +11,14 @@ from changelist_foci.input.string_validation import validate_name
 
 
 def parse_arguments(args: Optional[list[str]] = None) -> ArgumentData:
-    """
-    Parse command line arguments.
+    """ Parse command line arguments.
+ - Returns Default Argument Data when input is empty.
 
-    Parameters:
-    - args: A list of argument strings.
+**Parameters:**
+ - args: A list of argument strings.
 
-    Returns:
-    ArgumentData : Container for Valid Argument Data.
+ **Returns:**
+ ArgumentData : Container for Valid Argument Data.
     """
     if args is None:
         return ArgumentData()
@@ -35,15 +33,14 @@ def parse_arguments(args: Optional[list[str]] = None) -> ArgumentData:
 def _validate_arguments(
     parsed_args,
 ) -> ArgumentData:
-    """
-    Checks the values received from the ArgParser.
-        Uses Validate Name method from StringValidation.
+    """ Checks the values received from the ArgParser.
+ - Uses Validate Name method from StringValidation.
 
-    Parameters:
-    - parsed_args : The object returned by ArgumentParser.
+**Parameters:**
+ - parsed_args : The object returned by ArgumentParser.
 
-    Returns:
-    ArgumentData - A DataClass of syntactically correct arguments.
+**Returns:**
+ ArgumentData - A DataClass of syntactically correct arguments.
     """
     # Validate Changelist Name
     if (changelist := parsed_args.changelist) is not None:
@@ -70,16 +67,18 @@ def _validate_arguments(
 
 
 def _define_arguments() -> ArgumentParser:
-    """
-    Initializes and Defines Argument Parser.
-       - Sets Required/Optional Arguments and Flags.
+    """ Initializes and Defines Argument Parser.
+ - Sets Required/Optional Arguments and Flags.
 
-    Returns:
-    argparse.ArgumentParser - An instance with all supported Arguments.
+**Returns:**
+ argparse.ArgumentParser - An instance with all supported Arguments.
     """
     parser = ArgumentParser(
         description="ChangeList FOCI (File Oriented Commit Information).",
     )
+    # Introduced in Version 3.14: Color, SuggestOnError.
+    parser.color = True
+    parser.suggest_on_error = True
     # Optional Arguments
     parser.add_argument(
         '--changelist',
