@@ -1,5 +1,8 @@
+""" Test Data Providers and Fixtures
 """
-"""
+import os
+import tempfile
+
 import pytest
 from changelist_data.changelist import Changelist
 from changelist_data.file_change import FileChange
@@ -93,3 +96,15 @@ def simple_cl1():
             )
         ],
     )
+
+
+@pytest.fixture
+def temp_cwd():
+    """ Creates a Temporary Working Directory for Git subprocesses.
+    """
+    tdir = tempfile.TemporaryDirectory()
+    initial_cwd = os.getcwd()
+    os.chdir(tdir.name)
+    yield tdir
+    os.chdir(initial_cwd)
+    tdir.cleanup()
