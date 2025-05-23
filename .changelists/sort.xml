@@ -1,24 +1,39 @@
 <sorting>
-    <changelist name="CL-FOCI Input Package">
-        <files path_start="changelist_foci/input" />
+    <changelist name="CL-FOCI Input Package" module="module">
+        <files path_start="changelist_foci" />
+        <files path_end="input" />
+        <files file_ext="py" />
     </changelist>
-    <changelist name="CL-FOCI Main Package">
-        <files path_start="changelist_foci/" />
+    <changelist name="CL-FOCI Main Package" module="module">
+        <files path_start="changelist_foci" />
+        <files file_ext="py" />
     </changelist>
-    <changelist name="Test Input Package">
+    <changelist name="Test Input Package" module="module">
+        <files path_start="test/changelist_foci/input" />
+        <files file_ext="py" />
+    </changelist>
+    <!-- TODO: Remove Outdated Test Input Package -->
+    <changelist name="Outdated Test Input Package" module="module">
         <files path_start="test/input" />
+        <files file_ext="py" />
     </changelist>
-    <changelist name="Test Main Package">
-        <files path_start="test/" />
+    <changelist name="Test Main Package" module="module">
+        <files first_dir="test" />
+        <files path_end="changelist_foci" />
+        <files file_ext="py" />
+    </changelist>
+    <changelist name="Tests Package" module="module">
+        <files first_dir="test" />
+        <files file_ext="py" />
     </changelist>
     <changelist name="Documentation">
         <files file_ext="md" />
     </changelist>
-    <changelist name="GitHub Workflows">
+    <changelist name="GitHub Workflows" module="hidden">
         <files path_start=".github/workflows" />
         <files file_ext="yml" />
     </changelist>
-    <changelist name="GitHub Dependabot">
+    <changelist name="GitHub Dependabot" module="hidden">
         <files path_start=".github/" />
         <files filename_prefix="dependabot" />
         <files file_ext="yml" />
@@ -26,10 +41,13 @@
     <changelist key="root_python" name="Root Project Python Files" module="root">
         <files file_ext="py"/>
     </changelist>
+    <changelist key="changelists" name="Changelists Config" module="root">
+        <files file_ext="py"/>
+    </changelist>
     <changelist key="hidden_files" name="Hidden Files In Hidden Directories" module="hidden">
         <files filename_prefix="."/>
     </changelist>
-    <changelist key="root" name="Hidden Root Project Files" module="root">
+    <changelist key="root" name="Hidden Root Project Files">
         <files filename_prefix="."/>
     </changelist>
 </sorting>
