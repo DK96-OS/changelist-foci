@@ -1,6 +1,5 @@
 """ Testing String Validation Methods
 """
-
 from changelist_foci.input.string_validation import validate_name
 
 
