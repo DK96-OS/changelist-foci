@@ -5,11 +5,8 @@ def main():
     import changelist_foci
     from sys import argv
     input_data = changelist_foci.input.validate_input(argv[1:])
-    for foci_block in changelist_foci.generate_changelist_foci(
-        input_data.changelists,
-        input_data.format_options
-    ):
-        print(foci_block, end='\n\n', flush=True)
+    output_data = changelist_foci.get_changelist_foci(input_data)
+    print(output_data)
 
 
 if __name__ == "__main__":
