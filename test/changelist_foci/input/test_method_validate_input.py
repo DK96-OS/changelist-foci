@@ -92,3 +92,26 @@ def test_validate_input_file_does_not_exist_raises_exit():
         result = validate_input(test_input)
         assert result.changelist_name is None
         assert len(list(result.changelists)) == 0
+
+
+def test_validate_input_both_changelist_and_workspace_args_provided_raises_exit():
+    with pytest.raises(SystemExit, match="Cannot use two Data Files!"):
+        result = validate_input([
+            '--changelists_file', 'data.xml', '--workspace_file', 'workspace.xml'
+        ])
+        list(result.changelists)
+
+
+def test_validate_input_workspace_file_provided():
+    with pytest.MonkeyPatch().context() as c:
+        c.setattr(Path, 'exists', lambda x: x.name == 'workspace.xml')
+        c.setattr(Path, 'is_file', lambda _: True)
+        obj = Mock()
+        obj.__dict__["st_size"] = 4 * 1024
+        c.setattr(Path, 'stat', lambda _: obj)
+        c.setattr(Path, 'read_text', lambda _: get_simple_changelist_xml())
+        #
+        result = validate_input([
+            '--workspace_file', 'workspace.xml'
+        ])
+        list(result.changelists)

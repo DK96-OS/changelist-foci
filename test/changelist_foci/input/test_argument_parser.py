@@ -1,5 +1,7 @@
 """Testing Argument Parser Methods.
 """
+import pytest
+
 from changelist_foci.input.argument_parser import parse_arguments
 
 
@@ -27,6 +29,11 @@ def test_parse_arguments_change_list_main_returns_data():
     assert not result.no_file_ext
     assert not result.filename
     assert not result.all_changes
+
+
+def test_parse_arguments_invalid_changelist_name_space_raises_exit():
+    with pytest.raises(SystemExit, match='The ChangeList Name was invalid.'):
+        parse_arguments(['--changelist', ' '])
 
 
 def test_parse_arguments_filename_plus_no_file_ext_returns_data():
