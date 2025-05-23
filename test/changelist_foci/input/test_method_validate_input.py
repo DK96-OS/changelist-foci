@@ -20,12 +20,12 @@ def test_validate_input_empty_args_returns_data():
         c.setattr(Path, 'read_text', lambda _: get_simple_changelist_xml())
         #
         result = validate_input(test_input)
-    assert not result.all_changes
-    assert result.changelist_name is None
-    assert len(list(result.changelists)) == 1
-    assert result.format_options == FormatOptions(
-        False, False, False
-    )
+        assert not result.all_changes
+        assert result.changelist_name is None
+        assert len(list(result.changelists)) == 1
+        assert result.format_options == FormatOptions(
+            False, False, False
+        )
 
 
 def test_validate_input_all_changes_returns_data():
@@ -39,12 +39,12 @@ def test_validate_input_all_changes_returns_data():
         c.setattr(Path, 'read_text', lambda _: get_simple_changelist_xml())
         #
         result = validate_input(test_input)
-    assert result.all_changes
-    assert result.changelist_name is None
-    assert len(list(result.changelists)) == 1
-    assert result.format_options == FormatOptions(
-        False, False, False
-    )
+        assert result.all_changes
+        assert result.changelist_name is None
+        assert len(list(result.changelists)) == 1
+        assert result.format_options == FormatOptions(
+            False, False, False
+        )
 
 
 def test_validate_input_full_path_returns_data():
@@ -58,12 +58,12 @@ def test_validate_input_full_path_returns_data():
         c.setattr(Path, 'read_text', lambda _: get_simple_changelist_xml())
         #
         result = validate_input(test_input)
-    assert not result.all_changes
-    assert result.changelist_name is None
-    assert len(list(result.changelists)) == 1
-    assert result.format_options == FormatOptions(
-        True, False, False
-    )
+        assert not result.all_changes
+        assert result.changelist_name is None
+        assert len(list(result.changelists)) == 1
+        assert result.format_options == FormatOptions(
+            True, False, False
+        )
 
 
 def test_validate_input_filename_only_returns_data():
@@ -77,12 +77,12 @@ def test_validate_input_filename_only_returns_data():
         c.setattr(Path, 'read_text', lambda _: get_simple_changelist_xml())
         #
         result = validate_input(test_input)
-    assert not result.all_changes
-    assert result.changelist_name is None
-    assert len(list(result.changelists)) == 1
-    assert result.format_options == FormatOptions(
-        False, True, True
-    )
+        assert not result.all_changes
+        assert result.changelist_name is None
+        assert len(list(result.changelists)) == 1
+        assert result.format_options == FormatOptions(
+            False, True, True
+        )
 
 
 def test_validate_input_file_does_not_exist_raises_exit():
@@ -90,5 +90,5 @@ def test_validate_input_file_does_not_exist_raises_exit():
     with (pytest.MonkeyPatch().context() as ctx):
         ctx.setattr(Path, 'exists', lambda _: False)
         result = validate_input(test_input)
-    assert result.changelist_name is None
-    assert len(list(result.changelists)) == 0
+        assert result.changelist_name is None
+        assert len(list(result.changelists)) == 0
