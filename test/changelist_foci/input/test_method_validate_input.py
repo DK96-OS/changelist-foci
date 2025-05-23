@@ -2,6 +2,7 @@
 """
 from pathlib import Path
 from unittest.mock import Mock
+
 import pytest
 
 from changelist_foci.format_options import FormatOptions
@@ -115,3 +116,55 @@ def test_validate_input_workspace_file_provided():
             '--workspace_file', 'workspace.xml'
         ])
         list(result.changelists)
+
+
+def test_validate_input_changelist_file_valid_no_changelists(empty_changelists_xml):
+    with pytest.MonkeyPatch().context() as c:
+        c.setattr(Path, 'exists', lambda x: x.name == 'data.xml')
+        c.setattr(Path, 'is_file', lambda _: True)
+        obj = Mock()
+        obj.__dict__["st_size"] = 4 * 1024
+        c.setattr(Path, 'stat', lambda _: obj)
+        c.setattr(Path, 'read_text', lambda _: empty_changelists_xml)
+        #
+        result = validate_input(['--changelists_file', 'data.xml'])
+        assert len(list(result.changelists)) == 0
+
+
+def test_validate_input_changelist_file_simple(simple_changelists_xml):
+    with pytest.MonkeyPatch().context() as c:
+        c.setattr(Path, 'exists', lambda x: x.name == 'data.xml')
+        c.setattr(Path, 'is_file', lambda _: True)
+        obj = Mock()
+        obj.__dict__["st_size"] = 4 * 1024
+        c.setattr(Path, 'stat', lambda _: obj)
+        c.setattr(Path, 'read_text', lambda _: simple_changelists_xml)
+        #
+        result = validate_input(['--changelists_file', 'data.xml'])
+        assert len(list(result.changelists)) == 1
+
+
+def test_validate_input_changelist_file_multi(multi_changelists_xml):
+    with pytest.MonkeyPatch().context() as c:
+        c.setattr(Path, 'exists', lambda x: x.name == 'data.xml')
+        c.setattr(Path, 'is_file', lambda _: True)
+        obj = Mock()
+        obj.__dict__["st_size"] = 4 * 1024
+        c.setattr(Path, 'stat', lambda _: obj)
+        c.setattr(Path, 'read_text', lambda _: multi_changelists_xml)
+        #
+        result = validate_input(['--changelists_file', 'data.xml'])
+        assert len(list(result.changelists)) == 2
+
+
+def test_validate_input_changelist_file_invalid(invalid_changelists_xml):
+    with pytest.MonkeyPatch().context() as c:
+        c.setattr(Path, 'exists', lambda x: x.name == 'data.xml')
+        c.setattr(Path, 'is_file', lambda _: True)
+        obj = Mock()
+        obj.__dict__["st_size"] = 4 * 1024
+        c.setattr(Path, 'stat', lambda _: obj)
+        c.setattr(Path, 'read_text', lambda _: invalid_changelists_xml)
+        #
+        result = validate_input(['--changelists_file', 'data.xml'])
+        assert len(list(result.changelists)) == 0
