@@ -9,9 +9,9 @@ class FormatOptions:
     """ The detailed options for FOCI formatting.
 
 **Fields:**
- - full_path (bool): Whether to display the full path to the file.
- - no_file_ext (bool): Whether to filter file extensions (except move with different extensions).
- - file_name (bool): Whether to display the file name. Removes any parent directories.
+ - full_path (bool): Whether to display the full path to the file. Default: False.
+ - no_file_ext (bool): Whether to filter file extensions (except move with different extensions). Default: False.
+ - file_name (bool): Whether to display the file name. Removes any parent directories. Default: False.
     """
     full_path: bool = False
     no_file_ext: bool = False
@@ -42,4 +42,6 @@ class FormatOptions:
         return path
 
 
+""" The Default FormatOptions: All fields are False.
+"""
 DEFAULT_FORMAT_OPTIONS: FormatOptions = FormatOptions()
