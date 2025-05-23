@@ -12,11 +12,6 @@
         <files path_start="test/changelist_foci/input" />
         <files file_ext="py" />
     </changelist>
-    <!-- TODO: Remove Outdated Test Input Package -->
-    <changelist name="Outdated Test Input Package" module="module">
-        <files path_start="test/input" />
-        <files file_ext="py" />
-    </changelist>
     <changelist name="Test Main Package" module="module">
         <files first_dir="test" />
         <files path_end="changelist_foci" />
@@ -41,8 +36,9 @@
     <changelist key="root_python" name="Root Project Python Files" module="root">
         <files file_ext="py"/>
     </changelist>
-    <changelist key="changelists" name="Changelists Config" module="root">
-        <files file_ext="py"/>
+    <changelist key="changelists" name="Changelists Config" module="hidden">
+        <files first_dir=".changelists"/>
+        <files file_ext="xml"/>
     </changelist>
     <changelist key="hidden_files" name="Hidden Files In Hidden Directories" module="hidden">
         <files filename_prefix="."/>
