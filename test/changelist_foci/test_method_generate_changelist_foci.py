@@ -14,7 +14,7 @@ def test_generate_changelist_foci_simple_():
         changelists=generate_changelists_from_xml(get_simple_changelist_xml()),
     ))
     assert len(result) == 1
-    assert result[0] == f"""Simple:
+    assert result[0] == """Simple:
 * Update main.py"""
 
 
