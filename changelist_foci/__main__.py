@@ -7,9 +7,7 @@ def main():
     input_data = changelist_foci.input.validate_input(argv[1:])
     for foci_block in changelist_foci.generate_changelist_foci(
         input_data.changelists,
-        input_data.format_options,
-        input_data.all_changes,
-        input_data.changelist_name,
+        input_data.format_options
     ):
         print(foci_block, end='\n\n', flush=True)
 
