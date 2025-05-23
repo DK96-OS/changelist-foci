@@ -1,11 +1,11 @@
-"""The Input Package level methods.
+""" The Input Package level methods.
 """
 from pathlib import Path
 from sys import exit
+from typing import Generator
 
+from changelist_data import storage
 from changelist_data.changelist import Changelist
-from changelist_data.storage import read_storage
-from changelist_data.storage.storage_type import StorageType
 
 from changelist_foci.format_options import FormatOptions
 from changelist_foci.input.argument_data import ArgumentData
@@ -18,15 +18,15 @@ def validate_input(
     arguments: list[str],
 ) -> InputData:
     """ Given the Command Line Arguments, obtain the InputData.
-        1. Parse arguments with argument parser
-        2. Check File Arguments, read Storage
-        3. Return Structured Input Data
+ 1. Parse arguments with argument parser
+ 2. Check File Arguments, read Storage
+ 3. Return Structured Input Data
 
-    Parameters:
-    - arguments (list[str]): The Command Line Arguments received by the program.
+**Parameters:**
+ - arguments (list[str]): The Command Line Arguments received by the program.
     
-    Returns:
-    InputData - The formatted InputData.
+**Returns:**
+ InputData - The formatted InputData.
     """
     arg_data = parse_arguments(arguments)
     return InputData(
@@ -40,24 +40,32 @@ def validate_input(
 def _read_storage_file(
     changelists_file: str | None,
     workspace_file: str | None,
-) -> list[Changelist]:
+) -> Generator[Changelist, None, None]:
     """ Process the Given File Arguments, and read from Storage.
-    Storage is managed by changelist_data package.
+ - Storage is managed by changelist_data package.
 
-    Parameters:
-    - changelists_file (str | None): A string path to the Changelists file, if specified.
-    - workspace_file (str | None): A string path to the Workspace file, if specified.
+**Parameters:**
+ - changelists_file (str | None): A string path to the Changelists file, if specified.
+ - workspace_file (str | None): A string path to the Workspace file, if specified.
 
-    Returns:
-    list[Changelist] - The Changelist data from the storage file.
+**Yields:**
+ Changelist - The Changelist data from the storage file.
     """
     if isinstance(changelists_file, str) and isinstance(workspace_file, str):
         exit("Cannot use two Data Files!")
     if validate_name(changelists_file):
-        return read_storage(StorageType.CHANGELISTS, Path(changelists_file))
-    if validate_name(workspace_file):
-        return read_storage(StorageType.WORKSPACE, Path(workspace_file))
-    return read_storage()
+        yield from storage.generate_changelists_from_storage(
+            storage.storage_type.StorageType.CHANGELISTS,
+            Path(changelists_file)
+        )
+    elif validate_name(workspace_file):
+        yield from storage.generate_changelists_from_storage(
+            storage.storage_type.StorageType.WORKSPACE,
+            Path(workspace_file)
+        )
+    else:
+        yield from storage.generate_changelists_from_storage()
+    return None
 
 
 def _extract_format_options(
