@@ -17,8 +17,10 @@ class InputData:
  - changelist_name (str): The name of the Changelist, or None.
  - format_options (FormatOptions): The options for output formatting.
  - all_changes (bool): Flag for printing all changes in any Changelist.
+ - 
     """
     changelists: Iterable[Changelist]
     changelist_name: str | None = None
     format_options: FormatOptions = DEFAULT_FORMAT_OPTIONS
     all_changes: bool = False
+    #

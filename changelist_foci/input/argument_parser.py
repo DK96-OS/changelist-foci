@@ -117,6 +117,12 @@ def _define_arguments() -> ArgumentParser:
         help='Remove Parent Directories from File paths.',
     )
     parser.add_argument(
+        '--', '-',
+        action='store_true',
+        default=False,
+        help='.',
+    )
+    parser.add_argument(
         '--all-changes', '-a',
         action='store_true',
         default=False,
