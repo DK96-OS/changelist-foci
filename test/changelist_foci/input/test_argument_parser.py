@@ -96,6 +96,16 @@ def test_parse_arguments_all_changes_returns_data():
     assert result.all_changes
 
 
+def test_parse_arguments__returns_data():
+    result = parse_arguments(['--'])
+    assert result.changelist_name is None
+    assert result.workspace_path is None
+    assert not result.full_path
+    assert not result.no_file_ext
+    assert not result.filename
+    assert result.all_changes
+
+
 def test_parse_arguments_all_changes_plus_filename_returns_data():
     result = parse_arguments(['-af'])
     assert result.changelist_name is None
@@ -128,27 +138,15 @@ def test_parse_arguments_all_changes_with_changelist_name_returns_data():
 
 
 def test_parse_arguments_changelist_argument_missing_raises_exit():
-    try:
+    with pytest.raises(SystemExit):
         parse_arguments(['--changelist', '-a', 'Main'])
-        raised_exit = False
-    except SystemExit:
-        raised_exit = True
-    assert raised_exit
 
 
 def test_parse_arguments_changelist_file_argument_blank_raises_exit():
-    try:
+    with pytest.raises(SystemExit):
         parse_arguments(['--changelists_file', ''])
-        raised_exit = False
-    except SystemExit:
-        raised_exit = True
-    assert raised_exit
 
 
 def test_parse_arguments_workspace_file_argument_blank_raises_exit():
-    try:
+    with pytest.raises(SystemExit):
         parse_arguments(['--workspace_file', ''])
-        raised_exit = False
-    except SystemExit:
-        raised_exit = True
-    assert raised_exit

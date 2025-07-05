@@ -67,6 +67,25 @@ def test_validate_input_full_path_returns_data():
         )
 
 
+def test_validate_input__returns_data():
+    test_input = ['--']
+    with pytest.MonkeyPatch().context() as c:
+        c.setattr(Path, 'exists', lambda x: x.name == 'workspace.xml')
+        c.setattr(Path, 'is_file', lambda _: True)
+        obj = Mock()
+        obj.__dict__["st_size"] = 4 * 1024
+        c.setattr(Path, 'stat', lambda _: obj)
+        c.setattr(Path, 'read_text', lambda _: get_simple_changelist_xml())
+        #
+        result = validate_input(test_input)
+        assert not result.all_changes
+        assert result.changelist_name is None
+        assert len(list(result.changelists)) == 1
+        assert result.format_options == FormatOptions(
+            True, False, False
+        )
+
+
 def test_validate_input_filename_only_returns_data():
     test_input = ['-fx']
     with pytest.MonkeyPatch().context() as c:
