@@ -86,7 +86,7 @@ def test_validate_input_comment_returns_data():
         assert result.format_options == FormatOptions(
             False, False, False
         )
-        assert result.comment
+        assert result.changelist_data_storage
 
 
 def test_validate_input_filename_only_returns_data():
@@ -106,7 +106,7 @@ def test_validate_input_filename_only_returns_data():
         assert result.format_options == FormatOptions(
             False, True, True
         )
-        assert not result.comment
+        assert not result.changelist_data_storage
 
 
 def test_validate_input_file_does_not_exist_raises_exit():
@@ -117,7 +117,7 @@ def test_validate_input_file_does_not_exist_raises_exit():
         assert result.changelist_name is None
         assert len(list(result.changelists)) == 0
         assert result.format_options == DEFAULT_FORMAT_OPTIONS
-        assert not result.comment
+        assert not result.changelist_data_storage
 
 
 def test_validate_input_both_changelist_and_workspace_args_provided_raises_exit():
@@ -143,7 +143,7 @@ def test_validate_input_workspace_file_provided():
         assert result.changelist_name is None
         assert 1 == len(list(result.changelists))
         assert result.format_options == DEFAULT_FORMAT_OPTIONS
-        assert not result.comment
+        assert not result.changelist_data_storage
 
 
 def test_validate_input_changelist_file_valid_no_changelists(empty_changelists_xml):
@@ -159,7 +159,7 @@ def test_validate_input_changelist_file_valid_no_changelists(empty_changelists_x
         assert result.changelist_name is None
         assert len(list(result.changelists)) == 0
         assert result.format_options == DEFAULT_FORMAT_OPTIONS
-        assert not result.comment
+        assert not result.changelist_data_storage
 
 
 def test_validate_input_changelist_file_simple(simple_changelists_xml):
@@ -175,7 +175,7 @@ def test_validate_input_changelist_file_simple(simple_changelists_xml):
         assert result.changelist_name is None
         assert len(list(result.changelists)) == 1
         assert result.format_options == DEFAULT_FORMAT_OPTIONS
-        assert not result.comment
+        assert not result.changelist_data_storage
 
 
 def test_validate_input_changelist_file_multi(multi_changelists_xml):
@@ -191,7 +191,7 @@ def test_validate_input_changelist_file_multi(multi_changelists_xml):
         assert result.changelist_name is None
         assert len(list(result.changelists)) == 2
         assert result.format_options == DEFAULT_FORMAT_OPTIONS
-        assert not result.comment
+        assert not result.changelist_data_storage
 
 
 def test_validate_input_changelist_file_multi_name_argument(multi_changelists_xml):
@@ -207,7 +207,7 @@ def test_validate_input_changelist_file_multi_name_argument(multi_changelists_xm
         assert result.changelist_name == 'Main'
         assert len(list(result.changelists)) == 2
         assert result.format_options == DEFAULT_FORMAT_OPTIONS
-        assert not result.comment
+        assert not result.changelist_data_storage
 
 
 def test_validate_input_changelist_file_invalid(invalid_changelists_xml):
@@ -223,4 +223,4 @@ def test_validate_input_changelist_file_invalid(invalid_changelists_xml):
         assert result.changelist_name is None
         assert len(list(result.changelists)) == 0
         assert result.format_options == DEFAULT_FORMAT_OPTIONS
-        assert not result.comment
+        assert not result.changelist_data_storage
