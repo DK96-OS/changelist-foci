@@ -2,6 +2,7 @@
 """
 from typing import Generator, Iterable
 
+from changelist_data import ChangelistDataStorage
 from changelist_data.changelist import Changelist, get_default_cl
 
 from changelist_foci.foci_writer import generate_foci
@@ -70,3 +71,32 @@ def generate_changelist_foci(
     """
     for cl in changelists:
         yield generate_foci(cl, foci_format)
+        
+        
+def insert_foci_comments(
+    cl_data_storage: ChangelistDataStorage,
+    foci_format: FormatOptions,
+):
+    """ Insert the FOCI into the Changelist Data file comments.
+
+**Parameters:**
+ - cl_data_storage (ChangelistDataStorage): The Changelist Data Storage access object.
+ - foci_format (FormatOptions): The Formatting options for the FOCI.
+    """
+    cl_data_storage.update_changelists(
+        Changelist(
+            id=cl.id,
+            name=cl.name,
+            changes=cl.changes,
+            comment=_only_update_comment_if_nonempty(cl, foci_format),
+            is_default=cl.is_default,
+        ) for cl in cl_data_storage.get_changelists()
+    )
+
+
+def _only_update_comment_if_nonempty(
+    cl: Changelist,
+    foci_format: FormatOptions,
+) -> str:
+    updated_comment: str = generate_foci(cl, foci_format)
+    return updated_comment if len(updated_comment) > 0 else cl.comment

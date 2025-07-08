@@ -2,11 +2,18 @@
 
 
 def main():
-    import changelist_foci
     from sys import argv
+    import changelist_foci
     input_data = changelist_foci.input.validate_input(argv[1:])
-    output_data = changelist_foci.get_changelist_foci(input_data)
-    print(output_data)
+    if not input_data.changelist_data_storage:
+        output_data = changelist_foci.get_changelist_foci(input_data)
+        print(output_data)
+    else:
+        changelist_foci.insert_foci_comments(
+            input_data.changelist_data_storage,
+            input_data.format_options
+        )
+        input_data.changelist_data_storage.write_to_storage()
 
 
 if __name__ == "__main__":
