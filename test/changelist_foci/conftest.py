@@ -116,7 +116,6 @@ def get_main_changelist_data() -> Changelist:
     )
 
 
-
 REL_FILE_PATH_1 = 'main_package/__main__.py'
 REL_FILE_PATH_2 = 'main_package/__init__.py'
 
@@ -148,3 +147,19 @@ def temp_cwd():
     yield tdir
     os.chdir(initial_cwd)
     tdir.cleanup()
+    
+
+class FileOutputCollector:
+    """ Author: DK96-OS 2025
+    """
+    def __init__(self):
+        self._output_str = ''
+    
+    def set_output(self, output_str: str, **kwargs):
+        self._output_str = output_str
+    
+    def get_mock_write_text(self):
+        return self.set_output
+    
+    def get_output(self) -> str:
+        return self._output_str
