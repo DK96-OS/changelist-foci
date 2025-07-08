@@ -96,14 +96,15 @@ def test_parse_arguments_all_changes_returns_data():
     assert result.all_changes
 
 
-def test_parse_arguments__returns_data():
-    result = parse_arguments(['--'])
+def test_parse_arguments_comment_returns_data():
+    result = parse_arguments(['-c'])
     assert result.changelist_name is None
     assert result.workspace_path is None
     assert not result.full_path
     assert not result.no_file_ext
     assert not result.filename
-    assert result.all_changes
+    assert not result.all_changes
+    assert result.comment
 
 
 def test_parse_arguments_all_changes_plus_filename_returns_data():
