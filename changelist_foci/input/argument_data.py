@@ -19,7 +19,7 @@ class ArgumentData:
  - no_file_ext (bool): Remove the File Extension.
  - filename (bool): Remove the Parent Directories.
  - all_changes (bool): Format and Print all Changes from all Changelists.
- - 
+ - comment (bool): Whether to insert FOCI into the Changelist Comments, rather than printing.
     """
     changelist_name: str | None = None
     changelists_path: str | None = None
@@ -28,4 +28,4 @@ class ArgumentData:
     no_file_ext: bool = False
     filename: bool = False
     all_changes: bool = False
-    #
+    comment: bool = False

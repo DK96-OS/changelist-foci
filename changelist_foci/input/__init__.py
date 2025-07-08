@@ -34,6 +34,7 @@ def validate_input(
         changelist_name=arg_data.changelist_name,
         format_options=_extract_format_options(arg_data),
         all_changes=arg_data.all_changes,
+        comment=arg_data.comment,
     )
 
 

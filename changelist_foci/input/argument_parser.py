@@ -62,7 +62,8 @@ def _validate_arguments(
         full_path=parsed_args.full_path,
         no_file_ext=parsed_args.no_file_ext,
         filename=parsed_args.filename,
-        all_changes=parsed_args.all_changes
+        all_changes=parsed_args.all_changes,
+        comment=parsed_args.comment,
     )
 
 
@@ -117,15 +118,15 @@ def _define_arguments() -> ArgumentParser:
         help='Remove Parent Directories from File paths.',
     )
     parser.add_argument(
-        '--', '-',
-        action='store_true',
-        default=False,
-        help='.',
-    )
-    parser.add_argument(
         '--all-changes', '-a',
         action='store_true',
         default=False,
         help='Output All Changes in any Changelist.',
+    )
+    parser.add_argument(
+        '--comment', '-c',
+        action='store_true',
+        default=False,
+        help='Insert FOCI into Changelist Workspace Comments instead of printing.',
     )
     return parser
