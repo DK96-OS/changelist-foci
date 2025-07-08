@@ -21,7 +21,7 @@ def get_changelist_foci(
  str - The FOCI formatted output.
     """
     # Select Changelist by Name
-    if (cl_name := input_data.changelist_name) not in ["None", None]:   #todo: Remove the String "None", Next Jump Release.
+    if (cl_name := input_data.changelist_name) not in ["None", None]: #todo: Remove the String "None", Next Jump Release.
         try:
             return generate_foci(
                 changelist=filter(lambda x: x.name.startswith(cl_name), input_data.changelists).__next__(),
@@ -31,15 +31,21 @@ def get_changelist_foci(
             exit(f"Specified Changelist {cl_name} not present.")
     # All Changelists, separated by newlines
     elif input_data.all_changes:
-        return '\n\n'.join(
+        # Check the length of the output before 
+        if 0 == len(output_foci := '\n\n'.join(
             generate_changelist_foci(
                 filter(lambda x: len(x.changes) > 0, input_data.changelists),
                 input_data.format_options,
             )
-        )
+        )):
+            exit("There are no Changelists.") 
+        return output_foci
     else: # The Default Changelist
+        # Handle case where there are no changelists
+        if (default_cl := get_default_cl(input_data.changelists)) is None:
+            exit("There are no Changelists.")
         return generate_foci(
-            changelist=get_default_cl(input_data.changelists),
+            changelist=default_cl,
             format_options=input_data.format_options
         )
 
