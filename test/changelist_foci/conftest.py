@@ -41,6 +41,15 @@ def get_simple_changelist_xml() -> str:
 </project>"""
 
 
+def get_simple_changelist_data_xml() -> str:
+    return """<?xml version="1.0" encoding="UTF-8"?>
+<changelists>
+  <list id="9f60fda2-421e-4a4b-bd0f-4c8f83a47c88" name="Simple" comment="Main Program Files">
+    <change beforePath="/main.py" beforeDir="false"  afterPath="/main.py" afterDir="false" />
+  </list>
+</changelists>"""
+
+
 def get_multi_changelist_xml() -> str:
     return """<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
