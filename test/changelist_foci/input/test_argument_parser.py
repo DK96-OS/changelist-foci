@@ -1,4 +1,4 @@
-"""Testing Argument Parser Methods.
+""" Testing Argument Parser Methods.
 """
 import pytest
 
@@ -96,13 +96,35 @@ def test_parse_arguments_all_changes_returns_data():
     assert result.all_changes
 
 
-def test_parse_arguments_comment_returns_data():
+def test_parse_arguments_c_returns_data():
     result = parse_arguments(['-c'])
     assert result.changelist_name is None
     assert result.workspace_path is None
     assert not result.full_path
     assert not result.no_file_ext
     assert not result.filename
+    assert not result.all_changes
+    assert result.comment
+
+
+def test_parse_arguments_comment_returns_data():
+    result = parse_arguments(['--comment'])
+    assert result.changelist_name is None
+    assert result.workspace_path is None
+    assert not result.full_path
+    assert not result.no_file_ext
+    assert not result.filename
+    assert not result.all_changes
+    assert result.comment
+
+
+def test_parse_arguments_cfx_returns_data():
+    result = parse_arguments(['-cfx'])
+    assert result.changelist_name is None
+    assert result.workspace_path is None
+    assert not result.full_path
+    assert result.no_file_ext
+    assert result.filename
     assert not result.all_changes
     assert result.comment
 
