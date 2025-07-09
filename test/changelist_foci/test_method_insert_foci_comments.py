@@ -1,6 +1,5 @@
 """ Testing the Insert Foci Comments Method.
 """
-import sys
 import pytest
 from changelist_data.storage import load_storage
 
