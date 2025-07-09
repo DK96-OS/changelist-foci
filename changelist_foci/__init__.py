@@ -56,9 +56,9 @@ def generate_changelist_foci(
     foci_format: FormatOptions = DEFAULT_FORMAT_OPTIONS,
 ) -> Generator[str, None, None]:
     """ Generate String Blocks of FOCI.
-- By default, all_changelists argument is True.
-- Changelist_name is matched at the start of the string.
-- If no changelist_name, tries the Default, then the first Changelist.
+ - By default, all_changelists argument is True.
+ - Changelist_name is matched at the start of the string.
+ - If no changelist_name, tries the Default, then the first Changelist.
 
 **Parameters:**
  - changelists (Iterable[Changelist]): The source collection of Changelists to filter and generate from.
@@ -71,13 +71,14 @@ def generate_changelist_foci(
     """
     for cl in changelists:
         yield generate_foci(cl, foci_format)
-        
-        
+
+
 def insert_foci_comments(
     cl_data_storage: ChangelistDataStorage,
     foci_format: FormatOptions,
 ):
-    """ Insert the FOCI into the Changelist Data file comments.
+    """ Insert FOCI into Changelist Data Storage object.
+ - Does not write to the Data file, only updates in-memory data.
 
 **Parameters:**
  - cl_data_storage (ChangelistDataStorage): The Changelist Data Storage access object.
