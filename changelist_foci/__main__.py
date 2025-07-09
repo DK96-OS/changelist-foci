@@ -2,13 +2,12 @@
 
 
 def main():
-    from sys import argv
     import changelist_foci
-    input_data = changelist_foci.input.validate_input(argv[1:])
-    if not input_data.changelist_data_storage:
-        output_data = changelist_foci.get_changelist_foci(input_data)
-        print(output_data)
-    else:
+    from sys import argv
+    # When CL-Data-Storage Field is None, print FOCI
+    if not (input_data := changelist_foci.input.validate_input(argv[1:])).changelist_data_storage:
+        print(changelist_foci.get_changelist_foci(input_data))
+    else: # Insert FOCI into Storage
         changelist_foci.insert_foci_comments(
             input_data.changelist_data_storage,
             input_data.format_options

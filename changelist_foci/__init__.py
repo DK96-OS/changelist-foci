@@ -2,8 +2,8 @@
 """
 from typing import Generator, Iterable
 
-from changelist_data import ChangelistDataStorage
 from changelist_data.changelist import Changelist, get_default_cl
+from changelist_data.storage.changelist_data_storage import ChangelistDataStorage
 
 from changelist_foci.foci_writer import generate_foci
 from changelist_foci.format_options import FormatOptions, DEFAULT_FORMAT_OPTIONS
