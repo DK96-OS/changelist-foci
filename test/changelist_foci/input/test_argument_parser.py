@@ -129,6 +129,17 @@ def test_parse_arguments_cfx_returns_data():
     assert result.comment
 
 
+def test_parse_arguments_acfx_returns_data():
+    result = parse_arguments(['-acfx'])
+    assert result.changelist_name is None
+    assert result.workspace_path is None
+    assert not result.full_path
+    assert result.no_file_ext
+    assert result.filename
+    assert result.all_changes
+    assert result.comment
+
+
 def test_parse_arguments_all_changes_plus_filename_returns_data():
     result = parse_arguments(['-af'])
     assert result.changelist_name is None
