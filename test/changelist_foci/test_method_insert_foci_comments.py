@@ -15,8 +15,6 @@ def test_insert_foci_comments_none_raises_exit():
 
 
 def test_insert_foci_comments_cl_data_sample_1_default_format(temp_cwd):
-    sys.argv = ['cl-foci']
-    #
     CHANGELIST_DATA_FILE_PATH.parent.mkdir(parents=True)
     CHANGELIST_DATA_FILE_PATH.touch()
     CHANGELIST_DATA_FILE_PATH.write_text(CHANGELIST_DATA_SAMPLE_1)
