@@ -180,7 +180,9 @@ class FileOutputCollector:
         return self._output_str
 
 
-class PrintCollector:  # Author: DK96-OS
+class PrintCollector:
+    """ Author: DK96-OS 2025
+    """
     def __init__(self):
         self.collection: str = ''
 
