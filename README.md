@@ -20,6 +20,12 @@ If the changelist name is not provided:
 **All Changes FOCI:** `-a` or `--all-changes`
 An optional flag that overrides Changelist Name and prints out all Changelists with Changes.
 
+**FOCI Comments:** `-c` or `--comments`
+Insert the FOCI into the Changelist Data file comments, rather than printing.
+- This argument is combined with the `--all-changes` argument. All Changelist Comments are updated every time.
+- Disables the `--changelist` name selection argument.
+- Works with both Workspace and Changelist data files.
+
 ## File Format Flags
 **Full Path:** `--full-path`
 The full path of the file is given in Line Subjects.

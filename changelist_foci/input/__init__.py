@@ -2,10 +2,8 @@
 """
 from pathlib import Path
 from sys import exit
-from typing import Generator
 
 from changelist_data import storage
-from changelist_data.changelist import Changelist
 
 from changelist_foci.format_options import FormatOptions
 from changelist_foci.input.argument_data import ArgumentData
@@ -30,42 +28,41 @@ def validate_input(
     """
     arg_data = parse_arguments(arguments)
     return InputData(
-        changelists=_read_storage_file(arg_data.changelists_path, arg_data.workspace_path),
+        changelists=(cl_data_storage := _load_storage(arg_data.changelists_path, arg_data.workspace_path)).generate_changelists(),
         changelist_name=arg_data.changelist_name,
         format_options=_extract_format_options(arg_data),
         all_changes=arg_data.all_changes,
+        changelist_data_storage=cl_data_storage if arg_data.comment else None,
     )
 
 
-def _read_storage_file(
+def _load_storage(
     changelists_file: str | None,
     workspace_file: str | None,
-) -> Generator[Changelist, None, None]:
-    """ Process the Given File Arguments, and read from Storage.
- - Storage is managed by changelist_data package.
+) -> storage.ChangelistDataStorage:
+    """ Load the Changelist Data Storage access object.
 
 **Parameters:**
- - changelists_file (str | None): A string path to the Changelists file, if specified.
- - workspace_file (str | None): A string path to the Workspace file, if specified.
+ - changelists_file (str?): A string path to the Changelists file, if specified.
+ - workspace_file (str?): A string path to the Workspace file, if specified.
 
-**Yields:**
- Changelist - The Changelist data from the storage file.
+**Returns:**
+ ChangelistDataStorage - The Data Storage Access object.
     """
     if isinstance(changelists_file, str) and isinstance(workspace_file, str):
         exit("Cannot use two Data Files!")
     if validate_name(changelists_file):
-        yield from storage.generate_changelists_from_storage(
+        return storage.load_storage(
             storage.storage_type.StorageType.CHANGELISTS,
             Path(changelists_file)
         )
     elif validate_name(workspace_file):
-        yield from storage.generate_changelists_from_storage(
+        return storage.load_storage(
             storage.storage_type.StorageType.WORKSPACE,
             Path(workspace_file)
         )
     else:
-        yield from storage.generate_changelists_from_storage()
-    return None
+        return storage.load_storage()
 
 
 def _extract_format_options(
