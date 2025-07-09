@@ -3,7 +3,7 @@
 from pathlib import Path
 from sys import exit
 
-from changelist_data import storage, ChangelistDataStorage
+from changelist_data import storage
 
 from changelist_foci.format_options import FormatOptions
 from changelist_foci.input.argument_data import ArgumentData
@@ -39,7 +39,7 @@ def validate_input(
 def _load_storage(
     changelists_file: str | None,
     workspace_file: str | None,
-) -> ChangelistDataStorage:
+) -> storage.ChangelistDataStorage:
     """ Load the Changelist Data Storage access object.
 
 **Parameters:**
